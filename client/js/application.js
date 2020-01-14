@@ -14,13 +14,16 @@ App.onLaunch = function (options) {
     `${options.BASEURL}js/ResourceLoader.js`,
     `${options.BASEURL}js/Presenter.js`
   ];
-  
+
   evaluateScripts(javascriptFiles, function (success) {
     if (success) {
       // 3
       resourceLoader = new ResourceLoader(options.BASEURL);
       resourceLoader.loadResource(`${options.BASEURL}templates/RWDevConTemplate.xml.js`, function (resource) {
         var doc = Presenter.makeDocument(resource);
+
+        // The addEventListener method is analogous to hooking a button to an @IBAction. 
+        doc.addEventListener("select", Presenter.load.bind(Presenter)); //add this line
         Presenter.pushDocument(doc);
       });
     } else {

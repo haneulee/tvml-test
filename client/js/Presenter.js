@@ -20,4 +20,21 @@ var Presenter = {
     pushDocument: function (xml) {
         navigationDocument.pushDocument(xml);
     },
+
+    load: function (event) {
+        //1
+        var self = this,
+            ele = event.target,
+            videoURL = ele.getAttribute("videoURL")
+        if (videoURL) {
+            //2
+            var player = new Player();
+            var playlist = new Playlist();
+            var mediaItem = new MediaItem("video", videoURL);
+
+            player.playlist = playlist;
+            player.playlist.push(mediaItem);
+            player.present();
+        }
+    },
 }
